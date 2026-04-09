@@ -1,22 +1,10 @@
 # clean_clea
 
-`clean_clea` is an R project for identifying and correcting errors in the Constituency-Level Elections Archive (CLEA) and producing cleaned analysis-ready outputs.
+`clean_clea` is my attempt to clean up [the Constituency-Level Elections Archive](https://electiondataarchive.org/data-and-documentation/clea-lower-chamber-elections-archive/) and to subset these data to [simple electoral systems](https://www.cambridge.org/core/books/votes-from-seats/components-of-simple-electoral-systems/CE8DD54C39683D46093EB299F29A49C9).
 
-The repository includes scripts for:
+The repo contains all of the data and code needed to audit or replicate my changes. Wherever possible, I have also included links to the sources that I have used. Note that, in some cases, where data appeared unreliable, I have opted to remove them from the data.
 
-- wrangling raw CLEA data
-- applying record-level corrections
-- classifying simple electoral systems
-- generating cleaned `.rds` outputs
+If you're just interested in the data, click the links below to download the current processed datasets directly:
 
-The repository produces two main processed datasets:
-
-- `clean_clea.rds`, a cleaned version of CLEA with corrected record-level information
-- `simple_systems.rds`, a subset focused on elections held under simple electoral systems
-
-Following Shugart and Taagepera (2017, Chapter 2, "Components of Simple Electoral Systems"), a simple system is one in which all seats are allocated in districts and the allocation rule respects the rank-size principle. In this project, `simple_systems.rds` is intended to capture the elections in CLEA that meet that definition.
-
-Download the current processed datasets directly:
-
-- [`clean_clea.rds`](https://raw.githubusercontent.com/jackobailey/clean_clea/main/_data/proc/clean_clea.rds)
-- [`simple_systems.rds`](https://raw.githubusercontent.com/jackobailey/clean_clea/main/_data/proc/simple_systems.rds)
+- [Clean CLEA (`clean_clea.rds`)](https://raw.githubusercontent.com/jackobailey/clean_clea/main/_data/proc/clean_clea.rds)
+- [CLEA Simple Systems (`simple_systems.rds`)](https://raw.githubusercontent.com/jackobailey/clean_clea/main/_data/proc/simple_systems.rds)
