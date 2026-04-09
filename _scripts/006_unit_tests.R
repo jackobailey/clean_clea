@@ -17,7 +17,8 @@ errors <-
         "d <= sqrt( (cv2 + 1) / (2 * cv2) )",
         "d >= (1/sqrt(2)) * abs( pv[1] - ps[1])",
         "w <= w_curve(floor(cv2), ceiling(cv2)) | m == 1",
-        "w >= w_curve(1, cv0) | m == 1"
+        "w >= w_curve(1, cv0) | m == 1",
+        "s >= 1 | pv > tx"
       ),
     errors = NA,
     cases = vector("list", length(test))
@@ -302,9 +303,7 @@ if(length(index[index == FALSE]) != 0){
 }
 
 
-# Summary: There are a handful of errors remaining. Most come from cases where
-# independents were lumped together and, collectively, won a large share of the
-# vote. I could remove all cases like this, but I fear I'd lose too many cases.
-# The Czech case is unusual too: it looks like it doesn't respect the rank-size
-# principle in one district, but I can't really work out what's going on in that
-# case.
+
+## Test 10: s >= 1 | pv > tx ----------------------------------------------
+
+errors
