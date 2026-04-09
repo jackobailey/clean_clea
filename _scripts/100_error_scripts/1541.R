@@ -12,22 +12,23 @@
 dta <-
   dta |>
   mutate(
-    seat = case_when(
-      id == 1541 & cst == 4 & can %in% c(
-        "Konstantinou Ksenia",
-        "Sofokleous Michalis",
-        "Orfanidou Savia",
-        "Georgiadou Roula"
-      ) ~ 0,
-      id == 1541 & cst == 4 & can %in% c(
-        "Kyriakidou Stella",
-        "Kasinis Solonas",
-        "Nouris Nikos",
-        "Syllouris Demetrios"
-      ) ~ 1,
-      id == 1541 & cst == 5 & can == "Sizopoulos Marinos" ~ 1,
-      TRUE ~ seat
-    )
+    seat =
+      case_when(
+        id == 1541 & cst == 4 & can %in% c(
+          "Konstantinou Ksenia",
+          "Sofokleous Michalis",
+          "Orfanidou Savia",
+          "Georgiadou Roula"
+        ) ~ 0,
+        id == 1541 & cst == 4 & can %in% c(
+          "Kyriakidou Stella",
+          "Kasinis Solonas",
+          "Nouris Nikos",
+          "Syllouris Demetrios"
+        ) ~ 1,
+        id == 1541 & cst == 5 & can == "Sizopoulos Marinos" ~ 1,
+        TRUE ~ seat
+      )
   ) |>
   bind_rows(
     tibble(
@@ -71,10 +72,3 @@ dta <-
     dta = dta,
     id = 1541
   )
-
-# In Lemesos, the district magnitude was 21, not 20.
-
-dta$mag[
-  dta$id == 1541 &
-    dta$cst_n == "Lemesos"
-] <- 21

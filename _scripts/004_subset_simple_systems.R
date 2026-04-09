@@ -242,6 +242,19 @@ dta <-
   ungroup()
 
 
+# Subset to elections that do not aggregate independent candidates or minor
+# parties
+
+dta <-
+  dta |>
+  group_by(id) |>
+  filter(
+    !any(pty == 4000),
+    !any(pty == 6000)
+  ) |>
+  ungroup()
+
+
 # Compute each candidate/party's vote and seat share
 
 dta <-
