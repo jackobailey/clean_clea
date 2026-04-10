@@ -306,4 +306,25 @@ if(length(index[index == FALSE]) != 0){
 
 ## Test 10: s >= 1 | pv > tx ----------------------------------------------
 
-errors
+# Get cases where the test fails
+
+index <-
+  lapply(
+    split_dta,
+    \(x) all(ifelse(x$s > 0, x$s >= x$tx, TRUE))
+  ) |>
+  unlist()
+
+
+# Populate table error count
+
+errors$errors[10] <- length(index[index == FALSE])
+
+
+# Populate table error cases
+
+if(length(index[index == FALSE]) != 0){
+
+  errors$cases[[10]] <- names(index[index == FALSE])
+
+}
