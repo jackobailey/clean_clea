@@ -177,6 +177,8 @@ pr <-
     v = sum(v),
     s = sum(s),
     uncontested = unique(uncontested),
+    electoral_system = unique(electoral_system),
+    threshold = unique(threshold),
     .groups = "drop"
   )
 
