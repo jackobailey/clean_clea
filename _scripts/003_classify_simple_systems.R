@@ -31,6 +31,7 @@ vdem <-
     iso3 = country_text_id,
     year,
     electoral_system = v2elloelsy,
+    upper_tier = v2elloupdis,
     threshold = v2elthresh
   ) |>
   tibble()
@@ -265,16 +266,17 @@ vdem <-
           # "Parallel (SMD/PR)",
           # "Mixed-member proportional (SMD with PR compensatory seats)",
           "List PR with small multi-member districts",
-          "List PR with large multi-member districts"
+          "List PR with large multi-member districts",
           # "Single-transferable vote in multi-member districts",
-          # "Single non-transferable vote in multi-member districts",
+          "Single non-transferable vote in multi-member districts"
           # "Limited vote in multi-member districts"
           # "Borda Count in single- or multi-member districts"
-        ) ~ TRUE,
+        ) & (upper_tier == 0 | is.na(upper_tier) == TRUE) ~ TRUE,
         TRUE ~ FALSE
       )
   ) |>
-  relocate(simple_system, .after = electoral_system)
+  relocate(simple_system, .after = electoral_system) |>
+  select(-upper_tier)
 
 
 # Uruguay uses list PR in multi-member districts, however, the quotas are set at

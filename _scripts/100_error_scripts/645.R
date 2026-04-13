@@ -81,6 +81,22 @@ dta$cst_n[
 ] <- "brigg"
 
 
+# In cst == 91 (cardiff, east) the Nationals won 11,306 votes
+# https://api.parliament.uk/uk-general-elections/elections/14370
+
+dta$pv1[
+  dta$id == 645 &
+    dta$cst == 91 &
+    dta$pty == 90
+] <- 11306
+
+dta$cv1[
+  dta$id == 645 &
+    dta$cst == 91 &
+    dta$pty == 90
+] <- 11306
+
+
 # For some reason, the data include independent candidates twice: once with the
 # vote share and once as -990. I will omit the missing ones.
 

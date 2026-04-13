@@ -12,13 +12,14 @@ errors <-
         "m >= 1",
         "sum(s) == m",
         "sum(v) >= 1",
-        "cs2 <= m",
-        "cv0 >= cs0",
-        "d <= sqrt( (cv2 + 1) / (2 * cv2) )",
+        "ns2 <= m",
+        "nv0 >= ns0",
+        "d <= sqrt( (nv2 + 1) / (2 * nv2) )",
         "d >= (1/sqrt(2)) * abs( pv[1] - ps[1])",
-        "w <= w_curve(floor(cv2), ceiling(cv2)) | m == 1",
-        "w >= w_curve(1, cv0) | m == 1",
-        "s >= 1 | pv > tx"
+        "w <= w_curve(floor(nv2), ceiling(nv2)) | m == 1",
+        "w >= w_curve(1, nv0) | m == 1",
+        "s >= 1 | pv > tx",
+        "cor(v, s, method = 'kendall') == T"
       ),
     errors = NA,
     cases = vector("list", length(test))
@@ -114,14 +115,14 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 4: cs2 <= m -------------------------------------------------------
+## Test 4: ns2 <= m -------------------------------------------------------
 
 # Get cases where the test fails
 
 index <-
   lapply(
     split_dta,
-    \(x) unique(x$cs2) <= unique(x$m) + .Machine$double.eps^0.5
+    \(x) unique(x$ns2) <= unique(x$m) + .Machine$double.eps^0.5
   ) |>
   unlist()
 
@@ -141,14 +142,14 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 5: cv0 >= cs0 -----------------------------------------------------
+## Test 5: nv0 >= ns0 -----------------------------------------------------
 
 # Get cases where the test fails
 
 index <-
   lapply(
     split_dta,
-    \(x) unique(x$cv0) + .Machine$double.eps^0.5 >= unique(x$cs0)
+    \(x) unique(x$nv0) + .Machine$double.eps^0.5 >= unique(x$ns0)
   ) |>
   unlist()
 
@@ -168,14 +169,14 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 6: d <= sqrt( (cv2 + 1) / (2 * cv2) ) -----------------------------
+## Test 6: d <= sqrt( (nv2 + 1) / (2 * nv2) ) -----------------------------
 
 # Get cases where the test fails
 
 index <-
   lapply(
     split_dta,
-    \(x) unique(x$d) <= sqrt( (unique(x$cv2) + 1) / (2 * unique(x$cv2)) )
+    \(x) unique(x$d) <= sqrt( (unique(x$nv2) + 1) / (2 * unique(x$nv2)) )
   ) |>
   unlist()
 
@@ -222,7 +223,7 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 8: w <= w_curve(floor(cv2), ceiling(cv2)) | m == 1 ----------------
+## Test 8: w <= w_curve(floor(nv2), ceiling(nv2)) | m == 1 ----------------
 
 # Get cases where the test fails
 
@@ -234,9 +235,9 @@ index <-
       if(unique(x$m == 1)){
 
         unique(x$w) <= w_curve(
-          floor(unique(x$cv2)),
-          ceiling(unique(x$cv2)),
-          unique(x$cv2)
+          floor(unique(x$nv2)),
+          ceiling(unique(x$nv2)),
+          unique(x$nv2)
         ) + .Machine$double.eps^0.5
 
       } else {
@@ -263,7 +264,7 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 9: w >= w_curve(1, cv0) | m == 1 ----------------------------------
+## Test 9: w >= w_curve(1, nv0) | m == 1 ----------------------------------
 
 # Get cases where the test fails
 
@@ -276,8 +277,8 @@ index <-
 
         unique(x$w) + .Machine$double.eps^0.5 >= w_curve(
           1,
-          unique(x$cv0),
-          unique(x$cv2)
+          unique(x$nv0),
+          unique(x$nv2)
         )
 
       } else {
@@ -326,5 +327,31 @@ errors$errors[10] <- length(index[index == FALSE])
 if(length(index[index == FALSE]) != 0){
 
   errors$cases[[10]] <- names(index[index == FALSE])
+
+}
+
+
+## Test 11: rank_size(v, s) == 0 ------------------------------------------
+
+# Get cases where the test fails
+
+index <-
+  lapply(
+    split_dta,
+    \(x) rank_size(x$v, x$s)
+  ) |>
+  unlist()
+
+
+# Populate table error count
+
+errors$errors[11] <- length(index[index == FALSE])
+
+
+# Populate table error cases
+
+if(length(index[index == FALSE]) != 0){
+
+  errors$cases[[11]] <- names(index[index == FALSE])
 
 }

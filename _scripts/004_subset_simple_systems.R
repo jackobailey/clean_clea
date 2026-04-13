@@ -148,42 +148,64 @@ dta <-
   select(-simple_system)
 
 
+# Aggregate to the party-level where systems use party-list PR and the candidate
+# level where they use first-past-the-post or the single non-transferable vote
+
+pr <-
+  dta |>
+  filter(
+    electoral_system %in% c(
+      "List PR with small multi-member districts",
+      "List PR with large multi-member districts"
+    )
+  ) |>
+  group_by(
+    id,
+    iso3,
+    country,
+    subregion,
+    region,
+    yr,
+    mn,
+    cst_n,
+    cst,
+    pty_n,
+    pty
+  ) |>
+  summarise(
+    m = unique(m),
+    v = sum(v),
+    s = sum(s),
+    uncontested = unique(uncontested),
+    .groups = "drop"
+  )
+
+dta <-
+  dta |>
+  filter(
+    !electoral_system %in% c(
+      "List PR with small multi-member districts",
+      "List PR with large multi-member districts"
+    )
+  ) |>
+  bind_rows(pr)
+
+rm(pr)
+
+
 # The United States of America and Panama are both included in these data, but
 # use fusion voting (and in the case of some US states, the alternate vote).
 # Ideally, I'd merge these together, but there are issues with the US data that
 # make this difficult. Further, since they are all in single-member districts,
 # they don't contribute a great deal to the modelling since the effective no.
 # of seat-winning parties must be 0 and there are plenty of other single member
-# districts. Panama is a little more useful, since it had larger magnitudes.
+# districts. Panama is tricky too.
 #
-# As such, I will drop the US entirely and merge the Panamanian data to the
-# candidate level. If anyone wants to sort out the US data, just let me know!
-
-pan <-
-  dta |>
-  filter(iso3 == "PAN") |>
-  mutate(can = if_else(is.na(can) == T, pty_n, can)) |>
-  group_by(
-    id, iso3, country, subregion, region, yr, mn, cst_n, cst, m, can
-  ) |>
-  summarise(
-    pty = pty[v == max(v)],
-    pty_n = pty_n[v == max(v)],
-    c = sum(c),
-    v = sum(v),
-    s = sum(s),
-    uncontested = unique(uncontested),
-    electoral_system = unique(electoral_system),
-    threshold = unique(threshold),
-    .groups = "drop"
-  )
+# As such, I will drop both countries from the data.
 
 dta <-
   dta |>
-  filter(!iso3 %in% c("USA", "PAN")) |>
-  bind_rows(pan)
-
-rm(pan)
+  filter(!iso3 %in% c("USA", "PAN"))
 
 
 # Wherever an election used first-past-the-post and the district magnitude is
@@ -255,6 +277,17 @@ dta <-
   ungroup()
 
 
+# Subset to elections that are rank-size consistent
+
+dta <-
+  dta |>
+  group_by(id, cst) |>
+  mutate(rank_size = rank_size(v, s)) |>
+  ungroup() |>
+  filter(rank_size == TRUE) |>
+  select(-rank_size)
+
+
 # Compute each candidate/party's vote and seat share
 
 dta <-
@@ -267,3 +300,15 @@ dta <-
   ungroup() |>
   relocate(pv, .after = s) |>
   relocate(ps, .after = pv)
+
+
+# Arrange the data according to id, cst, pv, and ps
+
+dta <-
+  dta |>
+  arrange(
+    id,
+    cst,
+    desc(pv),
+    desc(ps)
+  )

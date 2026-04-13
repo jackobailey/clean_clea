@@ -111,6 +111,20 @@ w_curve <- function(r, s, nv) {
 }
 
 
+
+# Test the rank-size principle --------------------------------------------
+
+# v: A vector of party vote counts/shares
+# s: A vector of party seat counts/shares
+
+
+rank_size <- function(v, s){
+
+  sum((outer(v, v, "-") * outer(s, s, "-")) < 0) == 0
+
+}
+
+
 # Collapse Netherlands to nationwide district ------------------------------
 
 # Arguments

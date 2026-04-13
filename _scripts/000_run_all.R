@@ -10,7 +10,6 @@
 # - Remove blank, invalid, and against all/none of the above votes that might
 #   have sneaked into the data.
 # - Make sure to check for candidates with no party (assume independent/other)?
-# - What to do in open list systems where party lists coexist with candidates?
 
 
 # Housekeeping ------------------------------------------------------------
@@ -91,7 +90,6 @@ source(
     "005_compute_statistics.R"
   )
 )
-
 
 
 # Conduct unit tests to detect remaining errors
