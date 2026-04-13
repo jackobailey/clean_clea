@@ -53,3 +53,12 @@ dta$seat[
     dta$cst == 10 &
     dta$pty == 5006
 ] <- 1
+
+
+# In C10, Alliance Force Dans L’Unite did not win a seat
+
+dta$seat[
+  dta$id == 1155 &
+    dta$cst == 10 &
+    dta$pty == 5006
+] <- 0

@@ -3,10 +3,7 @@
 
 # To do -------------------------------------------------------------------
 
-# - Deal with fusion voting: US, Venezuela, Peru, Mexico, any others?
-# - What to do about districts where candidates from the same party compete?
-#   - Could compute effective number of options/choices not parties? Need to get
-#     a really good grip on how votes are allocated under open list first.
+# - Deal with fusion voting in the US and Panama
 # - Remove blank, invalid, and against all/none of the above votes that might
 #   have sneaked into the data.
 # - Make sure to check for candidates with no party (assume independent/other)?
