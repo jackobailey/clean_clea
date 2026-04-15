@@ -346,7 +346,7 @@ vdem$simple_system[vdem$iso3 == "LVA"] <- FALSE
 # According to this document, Ecuador uses a mixed system, which might explain
 # why some of its results are a bit suspect.
 
-vdem$electoral_system[vdem$iso3 == "ECU"]
+vdem$simple_system[vdem$iso3 == "ECU"] <- FALSE
 
 
 # Recode threshold to show if there is or is not a legal threshold
