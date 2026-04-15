@@ -54,6 +54,16 @@ dta$seat[
     dta$pty == 5006
 ] <- 1
 
+dta$cst[
+  dta$id == 1155 &
+    dta$cst_n == "C10"
+] <- 10
+
+dta$cst_n[
+  dta$id == 1155 &
+    dta$cst_n == "C9"
+] <- 9
+
 
 # In C10, Alliance Force Dans L’Unite did not win a seat
 
