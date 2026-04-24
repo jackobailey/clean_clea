@@ -16,8 +16,8 @@ errors <-
         "nv0 >= ns0",
         "d <= sqrt( (nv2 + 1) / (2 * nv2) )",
         "d >= (1/sqrt(2)) * abs( pv[1] - ps[1])",
-        "w <= w_curve(floor(nv2), ceiling(nv2)) | m == 1",
-        "w >= w_curve(1, nv0) | m == 1",
+        "w <= 1 - 1 / nv2",
+        "w >= 1 - sqrt(ns0 / nv2)",
         "s >= 1 | pv > tx",
         "cor(v, s, method = 'kendall') == T"
       ),
@@ -223,28 +223,14 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 8: w <= w_curve(floor(nv2), ceiling(nv2)) | m == 1 ----------------
+## Test 8: w <= 1 - 1 / nv2 -----------------------------------------------
 
 # Get cases where the test fails
 
 index <-
   lapply(
     split_dta,
-    \(x){
-
-      if(unique(x$m == 1)){
-
-        unique(x$w) <= w_curve(
-          floor(unique(x$nv2)),
-          ceiling(unique(x$nv2)),
-          unique(x$nv2)
-        ) + .Machine$double.eps^0.5
-
-      } else {
-        TRUE
-      }
-
-    }
+    \(x) unique(x$w) <= 1 - 1/unique(x$nv2) + .Machine$double.eps^0.5
   ) |>
   unlist()
 
@@ -263,8 +249,7 @@ if(length(index[index == FALSE]) != 0){
 }
 
 
-
-## Test 9: w >= w_curve(1, nv0) | m == 1 ----------------------------------
+## Test 9: w >= 1 - sqrt(ns0 / nv2) ---------------------------------------
 
 # Get cases where the test fails
 
@@ -273,17 +258,7 @@ index <-
     split_dta,
     \(x){
 
-      if(unique(x$m == 1)){
-
-        unique(x$w) + .Machine$double.eps^0.5 >= w_curve(
-          1,
-          unique(x$nv0),
-          unique(x$nv2)
-        )
-
-      } else {
-        TRUE
-      }
+      unique(x$w) + .Machine$double.eps^0.5 >= 1 - sqrt( unique(x$ns0) / unique(x$nv2) )
 
     }
   ) |>
