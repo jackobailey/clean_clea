@@ -51,3 +51,48 @@ dta$seat[
     dta$cst == 64 &
     dta$pty == 101
 ] <- 1
+
+
+# In cst == 27 (NA-27 Tribal Area-1), Mr. Qadar Gul won
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 27 &
+    dta$can == "Mr. Baroz"
+] <- 0
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 27 &
+    dta$can == "Mr. Qadar Gul"
+] <- 1
+
+
+# In cst == 89 (NA-89 Sialkot-5), Pakistan Peoples Party won
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 89 &
+    dta$pty == 5001
+] <- 0
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 89 &
+    dta$pty == 101
+] <- 1
+
+
+# In cst == 135 (NA-135 Muzaffargarh-1), Mr. Zulfiqar Ali Burq won
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 135 &
+    dta$pty == 101
+] <- 0
+
+dta$seat[
+  dta$id == 1815 &
+    dta$cst == 135 &
+    dta$can == "Mr. Zulfiqar Ali Burq"
+] <- 1
