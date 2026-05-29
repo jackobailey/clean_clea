@@ -8,6 +8,7 @@
 # https://www.elections.ca/res/rep/off/ovr2019app/51/11003E.html
 # https://www.elections.ca/res/rep/off/ovr2019app/51/11098E.html
 # https://www.elections.ca/res/rep/off/ovr2019app/51/11038e.html
+# https://www.elections.ca/res/rep/off/ovr2019app/51/10980e.html
 
 # In cst == 117 (Guelph), the Liberals won the seat
 
@@ -66,4 +67,34 @@ dta$seat[
   dta$id == 1844 &
     dta$cst == 298 &
     dta$pty == 8
+] <- 1
+
+
+# In cst == 37 (Brome--Missisquoi), the Liberals won the seat
+
+dta$seat[
+  dta$id == 1844 &
+    dta$cst == 37 &
+    dta$pty == 8
+] <- 0
+
+dta$seat[
+  dta$id == 1844 &
+    dta$cst == 37 &
+    dta$pty == 42
+] <- 1
+
+
+# In cst == 165 (Longueuil--Charles-LeMoyne), the Liberals won the seat
+
+dta$seat[
+  dta$id == 1844 &
+    dta$cst == 165 &
+    dta$pty == 8
+] <- 0
+
+dta$seat[
+  dta$id == 1844 &
+    dta$cst == 165 &
+    dta$pty == 42
 ] <- 1
