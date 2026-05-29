@@ -5,6 +5,36 @@
 #
 # https://web.archive.org/web/20141218135335/http://www.ecs.gov.bd/MenuExternalFilesEng/125.pdf
 
+# In Rajshahi-5, the Bangladesh Nationalist Party won, not the Awami League
+
+dta$seat[
+  dta$id == 1694 &
+    dta$cst == 254 &
+    dta$pty == 3
+] <- 0
+
+dta$seat[
+  dta$id == 1694 &
+    dta$cst == 254 &
+    dta$pty == 28
+] <- 1
+
+
+# In Sylhet-4, the Bangladesh Nationalist Party won, not the Awami League
+
+dta$seat[
+  dta$id == 1694 &
+    dta$cst == 287 &
+    dta$pty == 3
+] <- 0
+
+dta$seat[
+  dta$id == 1694 &
+    dta$cst == 287 &
+    dta$pty == 28
+] <- 1
+
+
 # In Moulovibazar-4, the Awami League won, not Jatiya Party.
 
 dta$seat[
