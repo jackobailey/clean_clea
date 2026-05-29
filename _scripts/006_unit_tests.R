@@ -16,8 +16,8 @@ errors <-
         "nv0 >= ns0",
         "d <= sqrt( (nv2 + 1) / (2 * nv2) )",
         "d >= (1/sqrt(2)) * abs( pv[1] - ps[1])",
-        "w <= 1 - 1 / nv2",
-        "w >= 1 - sqrt(ns0 / nv2)",
+        "w <= w_max",
+        "w >= w_min",
         "s >= 1 | pv > tx",
         "cor(v, s, method = 'kendall') == T"
       ),
@@ -223,14 +223,20 @@ if(length(index[index == FALSE]) != 0){
 
 
 
-## Test 8: w <= 1 - 1 / nv2 -----------------------------------------------
+## Test 8: w <= w_max -----------------------------------------------------
 
 # Get cases where the test fails
 
 index <-
   lapply(
     split_dta,
-    \(x) unique(x$w) <= 1 - 1/unique(x$nv2) + .Machine$double.eps^0.5
+    \(x){
+      unique(x$w) <= w_max(
+        unique(x$nv2),
+        unique(x$nv0),
+        unique(x$ns0)
+      ) + .Machine$double.eps^0.5
+    }
   ) |>
   unlist()
 
@@ -249,7 +255,7 @@ if(length(index[index == FALSE]) != 0){
 }
 
 
-## Test 9: w >= 1 - sqrt(ns0 / nv2) ---------------------------------------
+## Test 9: w >= w_min -----------------------------------------------------
 
 # Get cases where the test fails
 
@@ -257,9 +263,11 @@ index <-
   lapply(
     split_dta,
     \(x){
-
-      unique(x$w) + .Machine$double.eps^0.5 >= 1 - sqrt( unique(x$ns0) / unique(x$nv2) )
-
+      unique(x$w) >= w_min(
+        unique(x$nv2),
+        unique(x$nv0),
+        unique(x$ns0)
+      ) - .Machine$double.eps^0.5
     }
   ) |>
   unlist()
@@ -277,7 +285,6 @@ if(length(index[index == FALSE]) != 0){
   errors$cases[[9]] <- names(index[index == FALSE])
 
 }
-
 
 
 ## Test 10: s >= 1 | pv > tx ----------------------------------------------

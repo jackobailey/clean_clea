@@ -11,10 +11,10 @@ dta <-
   dta |>
   group_by(id, cst) |>
   mutate(
-    nv0 = effective_parties(pv, 0),
-    ns0 = effective_parties(ps, 0),
-    nv2 = effective_parties(pv, 2),
-    ns2 = effective_parties(ps, 2),
+    nv0 = sum(pv > 0),
+    ns0 = sum(ps > 0),
+    nv2 = effective_parties(pv),
+    ns2 = effective_parties(ps),
     d = disproportionality(pv, ps),
     w = sum(pv[s == 0])
   ) |>
