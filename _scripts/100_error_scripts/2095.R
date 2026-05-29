@@ -14,3 +14,37 @@ dta$cst_n[
     dta$cst == 103 &
     dta$pty == 23
 ] <- "LUNTE"
+
+
+# In Kalulushi, Kampamba Mulenga (PF) won, not Rashida Mulenga
+# (Independent).
+
+dta$seat[
+  dta$id == 2095 &
+    dta$cst == 19 &
+    dta$can == "MULENGA Kampamba" &
+    dta$pty == 23
+] <- 1
+
+dta$seat[
+  dta$id == 2095 &
+    dta$cst == 19 &
+    dta$can == "MULENGA Rashida" &
+    dta$pty == 6014
+] <- 0
+
+# In Lumezi, Munir Zulu (Independent) won, not Pilila Mwanza (PF).
+
+dta$seat[
+  dta$id == 2095 &
+    dta$cst == 46 &
+    dta$can == "ZULU Munir" &
+    dta$pty == 6068
+] <- 1
+
+dta$seat[
+  dta$id == 2095 &
+    dta$cst == 46 &
+    dta$can == "MWANZA Pilila" &
+    dta$pty == 23
+] <- 0
