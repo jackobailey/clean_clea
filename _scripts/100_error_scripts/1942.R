@@ -73,3 +73,17 @@ dta$seat[
     dta$cst == 40 &
     dta$can == "ghanshyam das thirani"
 ] <- 1
+
+
+# In cst == 258 (muzaffarpur cum darbhanga), rameshwar sahu is listed twice
+
+dta <-
+  dta |>
+  filter(
+    !(
+      id == 1942 &
+        cst == 258 &
+        can == "rameshwar sahu" &
+        seat == 0
+    )
+  )
