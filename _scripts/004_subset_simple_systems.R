@@ -285,8 +285,8 @@ dta <-
   dta |>
   group_by(id, cst) |>
   mutate(rank_size = rank_size(v, s)) |>
-  ungroup() |>
-  filter(rank_size == TRUE) |>
+  group_by(id) |>
+  filter(all(rank_size == TRUE)) |>
   select(-rank_size)
 
 
