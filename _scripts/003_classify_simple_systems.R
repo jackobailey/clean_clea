@@ -275,9 +275,9 @@ vdem <-
           # "Parallel (SMD/PR)",
           # "Mixed-member proportional (SMD with PR compensatory seats)",
           "List PR with small multi-member districts",
-          "List PR with large multi-member districts",
+          "List PR with large multi-member districts"
           # "Single-transferable vote in multi-member districts",
-          "Single non-transferable vote in multi-member districts"
+          # "Single non-transferable vote in multi-member districts"
           # "Limited vote in multi-member districts"
           # "Borda Count in single- or multi-member districts"
         ) & (upper_tier == 0 | is.na(upper_tier) == TRUE) ~ TRUE,
