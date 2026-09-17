@@ -2,6 +2,11 @@
 
 ### Data from https://en.wikipedia.org/wiki/1919_Finnish_parliamentary_election
 
+### Data from https://otos.stat.fi/items/0047a231-3972-41c7-b936-8aef71f6394b
+
+### Note that there was the possibility of panachage in this election,
+### so it's not simple
+
 ### The source file (finland_prewar.csv) is laid out with one row per
 ### year-party and one column per constituency. We subset to this election,
 ### reshape to long form, map the (abbreviated) constituency headers onto
